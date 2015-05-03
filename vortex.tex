@@ -8,8 +8,8 @@
 \usepackage{amsthm}
 \usepackage{bm}
 \usepackage{nicefrac}
-\usepackage{cleveref}
 \usepackage{hyperref}
+\usepackage{cleveref}
 % Page formatting
 \addtolength{\textwidth}{5mm}
 \addtolength{\textheight}{12mm}
@@ -42,6 +42,9 @@
 \newcommand{\Dth}[1]{\DDh{#1}{t}}
 \newcommand{\Dthexp}[1]{\partial_t {#1} + u \partial_x {#1} + v \partial_y {#1}}
 \newcommand{\io}{\iota}
+\newcommand{\ba}{\bm{A}}
+\newcommand{\bb}{\bm{B}}
+\newcommand{\bc}{\bm{C}}
 % Header / footer
 \pagestyle{fancy}
 \lhead{Kieran Newman, 200901399}
@@ -88,43 +91,71 @@ and velocity is written (in three dimensional cartesian coordinates) as
 \end{equation}
 \subsection{Vector Identities}
 The following vector identities are used in this piece of work.
-There is much use of the so-called ``Del'' operator, represented by (for Cartesian coordinates$)
+There is much use of the so-called ``Del'' operator, represented by (for Cartesian coordinates)
 \begin{equation}
-\del=\left(\begin{array}{c} \partial_{x}\\\partial_{y}\\\partial_{z}\end{array}\right).
 \label{eq:deldef}
+\del=\left(\begin{array}{c} \partial_{x}\\\partial_{y}\\\partial_{z}\end{array}\right).
 \end{equation}
 In this notation, the divergence of a fluid is given by the inner product of ``Del'' with the velocity
 \begin{equation}
-\mbox{div} (\vel) = \deldot \vel = \partial_x u_x + \partial_y u_y + \partial_z u_z,
 \label{eq:divdef}
+\mbox{div} (\vel) = \deldot \vel = \partial_x u_x + \partial_y u_y + \partial_z u_z,
 \end{equation}
 and the curl is given by the outer product
 \begin{equation}
-\mbox{curl} (\vel) = \delcross \vel = \left(\begin{array}{c} \partial_y u_z -\partial_z u_y\\\partial_z u_x - \partial_x u_z\\\partial_x u_y - \partial_y u_x\end{array}\right).
 \label{eq:curldef}
+\mbox{curl} (\vel) = \delcross \vel = \left(\begin{array}{c} \partial_y u_z -\partial_z u_y\\\partial_z u_x - \partial_x u_z\\\partial_x u_y - \partial_y u_x\end{array}\right).
 \end{equation}
-Due to the properties of the inner and outer products, we can use the following identities
+The triple outer product of $\vel$ and $\del$ can be written using the following identity (from \citet{harlen14c6})
 \begin{equation}
-
+\label{eq:vecid1}
+\vel\times (\delcross \vel)=\inv{2}\del(\vel^2) -\vel\cdot\del\vel.
 \end{equation}
 \section{Dynamics of Vortices}
 The general motion of a fluid is given by the Navier-Stokes equations, which are usually written in vector form:
 \begin{equation}
-\partial_t\vel + \vel\cdot\del\vel = \nu \del^2 \vel -\inv{\rho} \del P,
 \label{eq:navierstokes}
+\partial_t\vel + \vel\cdot\del\vel = \nu \del^2 \vel -\inv{\rho} \del P,
 \end{equation}
 where $\rho$ is the fluid density, $P$ is the pressure and $\nu$ is the \emph{kinematic viscosity}, $\nicefrac{\mu}{\rho}$.
 When working with incompressible fluids, we also use the continuity equation
 \begin{equation}
-\deldot \vel =0.
 \label{eq:cont}
+\deldot \vel =0.
 \end{equation}
 This can be reworked to find an equation for the local vorticity of the fluid by remembering that the vorticity $\bo$ is equivalent to the vector curl of the velocity $\vel$.
-Thus, we can take the curl of \cref{eq:navierstokes} to obtain
+Following \citet{harlen14c6}, we can rewrite \cref{eq:navierstokes} using the identity in \cref{eq:vecid1}
 \begin{equation}
-
+\label{eq:navs2}
+\partial_t \vel + \inv{2}\del(\vel^2) - \vel\times (\delcross \vel) = \nu \del^2 \vel -\inv{\rho} \del P.
 \end{equation}
-
+Taking the curl of the whole equation, we obtain
+\begin{equation}
+\label{eq:veq1}
+\partial_t \delcross\vel + \inv{2}\delcross(\del(\vel^2))-\delcross(\vel\times (\delcross \vel))=\delcross(\nu \del^2 \vel) -\delcross(\inv{\rho} \del P).
+\end{equation}
+Now rewriting in terms of $\bo$ and noting that the outer product of $\del$ with a gradient is zero always, many parts of \cref{eq:veq1} disappear and we are left with
+\begin{equation}
+\label{eq:veq2}
+\partial_t \bo -\delcross(\vel\times\bo) = \nu \del^2 \bo.
+\end{equation}
+Using another expanded version of the triple vector product (again following \citet{harlen14c6})
+\begin{equation}
+\delcross(\vel \times \bo) = \vel\deldot\bo+\bo\cdot\del\vel -\bo\deldot\vel - \vel\cdot\del\bo,
+\label{eq:vecid2}
+\end{equation}
+we can then write 
+\begin{equation}
+\partial_t \bo -  \vel\deldot\bo+\bo\cdot\del\vel -\bo\deldot\vel - \vel\cdot\del\bo = \nu \del^2 \bo.
+\label{eq:veq3}
+\end{equation}
+However, from the continuity equation (\cref{eq:cont}) we have that $\deldot\vel=0$, and we also know that the divergence of a curl is always zero, so as $\bo=\delcross\vel$, $\deldot\bo=0$.
+This means we can further rewrite \cref{eq:veq3} to obtain
+\begin{equation}
+\partial_t \bo + \vel\cdot \del\bo = \bo \cdot \del\vel + \nu \del^2 \bo,
+\label{eq:veq4}
+\end{equation}
+the \emph{vorticity equation}.
 \section*{Appendix I: MATLAB Code}\label{sec:ap1}
 MATLAB code for the vortex leapfrogging program is given below.
 \begin{verbatim}
