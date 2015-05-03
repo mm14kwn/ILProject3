@@ -62,6 +62,68 @@
 Vortex interactions are an area of fluid dynamics still undergoing significant research.
 In this piece of work, we will first explore the dynamics of vortices and their interactions, then analyse the stability of a system of four vortices, following the work by \citet{acheson00}.
 A program was written in MATLAB to plot the paths of vortices in this system, and this is given in \hyperref[sec:ap1]{Appendix 1}.
+\subsection{Notation}
+\label{sec:notation}
+Many differing notations are used in the literature for differential operators, vorticity, vectors and other terms. In this piece of work, the first partial derivative is represented by
+\begin{equation}
+\label{eq:1partial}
+\frac{\partial}{\partial t} = \partial _t,
+\end{equation}
+and the second by
+\begin{align}
+\label{eq:doublepartial}
+\frac{\partial^2}{\partial t^2} &:= \partial_{tt},\\
+\label{eq:mixedpartial}
+\frac{\partial^2}{\partial x\partial y} &:= \partial_{xy}
+\end{align}
+for double and mixed derivatives. Vectors are written
+\begin{equation}
+\label{eq:vector}
+\bm{a}=\left(\begin{array}{c} a_1\\\vdots\\a_n \end{array}\right),
+\end{equation}
+and velocity is written (in three dimensional cartesian coordinates) as
+\begin{equation}
+\label{eq:veloc}
+\vel=\left(\begin{array}{c} u_x\\u_y\\u_z \end{array}\right).
+\end{equation}
+\subsection{Vector Identities}
+The following vector identities are used in this piece of work.
+There is much use of the so-called ``Del'' operator, represented by (for Cartesian coordinates$)
+\begin{equation}
+\del=\left(\begin{array}{c} \partial_{x}\\\partial_{y}\\\partial_{z}\end{array}\right).
+\label{eq:deldef}
+\end{equation}
+In this notation, the divergence of a fluid is given by the inner product of ``Del'' with the velocity
+\begin{equation}
+\mbox{div} (\vel) = \deldot \vel = \partial_x u_x + \partial_y u_y + \partial_z u_z,
+\label{eq:divdef}
+\end{equation}
+and the curl is given by the outer product
+\begin{equation}
+\mbox{curl} (\vel) = \delcross \vel = \left(\begin{array}{c} \partial_y u_z -\partial_z u_y\\\partial_z u_x - \partial_x u_z\\\partial_x u_y - \partial_y u_x\end{array}\right).
+\label{eq:curldef}
+\end{equation}
+Due to the properties of the inner and outer products, we can use the following identities
+\begin{equation}
+
+\end{equation}
+\section{Dynamics of Vortices}
+The general motion of a fluid is given by the Navier-Stokes equations, which are usually written in vector form:
+\begin{equation}
+\partial_t\vel + \vel\cdot\del\vel = \nu \del^2 \vel -\inv{\rho} \del P,
+\label{eq:navierstokes}
+\end{equation}
+where $\rho$ is the fluid density, $P$ is the pressure and $\nu$ is the \emph{kinematic viscosity}, $\nicefrac{\mu}{\rho}$.
+When working with incompressible fluids, we also use the continuity equation
+\begin{equation}
+\deldot \vel =0.
+\label{eq:cont}
+\end{equation}
+This can be reworked to find an equation for the local vorticity of the fluid by remembering that the vorticity $\bo$ is equivalent to the vector curl of the velocity $\vel$.
+Thus, we can take the curl of \cref{eq:navierstokes} to obtain
+\begin{equation}
+
+\end{equation}
 
 \section*{Appendix I: MATLAB Code}\label{sec:ap1}
 MATLAB code for the vortex leapfrogging program is given below.
