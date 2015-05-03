@@ -1,0 +1,133 @@
+\documentclass[10pt, a4paper]{article}
+% The next line loads some packages you will need
+\usepackage{graphicx, amsmath, amssymb, fancyhdr, setspace}
+\usepackage[round]{natbib}
+\usepackage{siunitx}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.11}
+\usepackage{amsthm}
+\usepackage{bm}
+\usepackage{nicefrac}
+\usepackage{cleveref}
+\usepackage{hyperref}
+% Page formatting
+\addtolength{\textwidth}{5mm}
+\addtolength{\textheight}{12mm}
+\addtolength{\topmargin}{-10mm}
+\pretolerance = 10000000
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{\baselineskip}
+\onehalfspacing   
+\newtheorem{exmp}{Example}[section]
+\numberwithin{equation}{section}
+\definecolor{color1}{RGB}{0,0,90} % Color of the article title and sections
+\definecolor{color2}{RGB}{0,20,20} % Color of the boxes behind the abstract and headings
+\hypersetup{hidelinks,colorlinks,breaklinks=true,urlcolor=color2,citecolor=color1,linkcolor=color1,bookmarksopen=false,pdftitle={Title},pdfauthor={Author}}
+\newcommand{\rhob}{\bar{\rho}}
+\newcommand{\srho}{\rhob + (\rho(\bm{x},t) -\rhob)}
+\newcommand{\srhos}{\rhob + (\rho -\rhob)}
+\newcommand{\DD}[2]{\frac{D#1}{D#2}}
+\newcommand{\Dt}[1]{\DD{#1}{t}}
+\newcommand{\vel}{\bm{u}}
+\newcommand{\grav}{\bm{g}}
+\newcommand{\del}{\nabla}
+\newcommand{\deldot}{\nabla \cdot}
+\newcommand{\delcross}{\nabla \times}
+\newcommand{\inv}[1]{\frac{1}{#1}}
+\newcommand{\bO}{\bm{\Omega}}
+\newcommand{\bo}{\bm{\omega}}
+\newcommand{\qv}{\bm{q}}
+\newcommand{\delh}{\nabla_h}
+\newcommand{\DDh}[2]{\frac{D_h#1}{D#2}}
+\newcommand{\Dth}[1]{\DDh{#1}{t}}
+\newcommand{\Dthexp}[1]{\partial_t {#1} + u \partial_x {#1} + v \partial_y {#1}}
+\newcommand{\io}{\iota}
+% Header / footer
+\pagestyle{fancy}
+\lhead{Kieran Newman, 200901399}
+\chead{}
+\rhead{\em MATH 5825M, assignment 3}
+\lfoot{}
+\cfoot{\thepage}
+\rfoot{}
+\setlength{\headheight}{20pt}
+\renewcommand{\headrulewidth}{0.4pt}
+\renewcommand{\footrulewidth}{0pt}
+
+\begin{document}
+\begin{center}
+\textbf{\Large Vortex Leapfrogging} \\
+\end{center}
+\section{Introduction}
+Vortex interactions are an area of fluid dynamics still undergoing significant research.
+In this piece of work, we will first explore the dynamics of vortices and their interactions, then analyse the stability of a system of four vortices, following the work by \citet{acheson00}.
+A program was written in MATLAB to plot the paths of vortices in this system, and this is given in \hyperref[sec:ap1]{Appendix 1}.
+
+\section*{Appendix I: MATLAB Code}\label{sec:ap1}
+MATLAB code for the vortex leapfrogging program is given below.
+\begin{verbatim}
+clear all
+N=input('number of vortices = ');
+%set time step and scales
+t=0;
+T=input('number of time steps = ');
+%set length step and scales
+h=input('step-size = ');
+%define vortex strengths
+for i=1:N
+    k(i)=input(['strength of vortex ',num2str(i),' = ']);
+end
+%define variable for position
+x=NaN(1000,N);
+y=NaN(1000,N);
+for i=1:N
+    x(1,i)=input(['x-coordinate of vortex ',num2str(i),' = ']);
+    y(1,i)=input(['y-coordinate of vortex ',num2str(i),' = ']);
+end
+for a=2:T
+    clear x1 x2 x3 x4 y1 y2 y3 y4 k1 k2 k3 k4 l1 l2 l3 l4
+    x1=x(a-1,:);
+    y1=y(a-1,:);
+    k1=NaN(1,N);
+    k2=NaN(1,N);
+    k3=NaN(1,N);
+    k4=NaN(1,N);
+    l1=NaN(1,N);
+    l2=NaN(1,N);
+    l3=NaN(1,N);
+    l4=NaN(1,N);
+    for i=1:N
+        k1(i)=h*vortexf(i,k,x1,y1,N);
+        l1(i)=h*vortexg(i,k,x1,y1,N);
+    end
+    x2=x1+(k1/2);
+    y2=y1+(y1/2);
+    for i=1:N
+        k2(i)=h*vortexf(i,k,x2,y2,N);
+        l2(i)=h*vortexg(i,k,x2,y2,N);
+    end
+    x3=x1+(k2/2);
+    y3=y1+(y2/2);
+    for i=1:N
+        k3(i)=h*vortexf(i,k,x3,y3,N);
+        l3(i)=h*vortexg(i,k,x3,y3,N);
+    end
+    x4=x1+(k3);
+    y4=y1+(y3);
+    for i=1:N
+        k4(i)=h*vortexf(i,k,x4,y4,N);
+        l4(i)=h*vortexg(i,k,x4,y4,N);
+    end
+    x(a,:)=x(a-1,:)+((1/6)*(k1+2*k2+2*k3+k4));
+    y(a,:)=y(a-1,:)+((1/6)*(l1+2*l2+2*l3+l4));
+    percent=100*a/T;
+    display([num2str(percent),'\% done'])
+end
+clf
+multicomet(x,y)
+title([num2str(T),' time steps, step size = ',num2str(h)])
+\end{verbatim}
+The scheme used is a fourth order Runge-Kutta method with non-adaptive step size. The equations plotted are from \citet{acheson00}.
+\bibliographystyle{dcu}
+\bibliography{kwnrefs}
+\end{document}
