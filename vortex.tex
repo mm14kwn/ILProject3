@@ -251,7 +251,7 @@ for $i=1,2,\ldots, N$.
 The summations in \cref{eq:vortposx,eq:vortposy} are implemented in \hyperref[vortexf]{\texttt{vortexf.m}} and \hyperref[vortexg]{\texttt{vortexg.m}} respectively.
 
 \section{Conserved Quantities}
-Returning to \crefrange{eq:vort1,eq:vort4}, and again following \citeauthor{love94}, we can express the right hand side of each equation by the partial derivative of some function $\chi$ (related to the streamfunction $\psi$), with respect to one of the vortex coordinates $x_0,x_1,y_0$ or $y_1$.
+Returning to \crefrange{eq:vort1}{eq:vort4}, and again following \citeauthor{love94}, we can express the right hand side of each equation by the partial derivative of some function $\chi$ (related to the streamfunction $\psi$), with respect to one of the vortex coordinates $x_0,x_1,y_0$ or $y_1$.
 To find this function, we must integrate the right hand side as follows:
 \begin{itemize}
 \item 
@@ -259,6 +259,16 @@ To find this function, we must integrate the right hand side as follows:
 \item 
 
 \end{itemize}
+\begin{figure}
+	\centering
+	\newlength\figureheight 
+	\newlength\figurewidth 
+	\setlength\figureheight{10cm} 
+	\setlength\figurewidth{\textwidth}
+	\input{vortex.tikz}
+	\caption{A plot of a vortex}
+	\label{fig:vortest}
+\end{figure}
 \clearpage
 \section*{Appendix I: MATLAB Code}\label{sec:ap1}
 MATLAB code for the vortex leapfrogging program (\texttt{vortexleap.m}\normalfont) and subroutines (\texttt{vortexf.m}\normalfont,\texttt{vortexg.m}) are given below.
