@@ -46,6 +46,8 @@
 \newcommand{\ba}{\bm{A}}
 \newcommand{\bb}{\bm{B}}
 \newcommand{\bc}{\bm{C}}
+\newcommand{\half}{\frac{1}{2}}
+\newcommand{\nicehalf}{\nicefrac{1}{2}}
 % Header / footer
 \pagestyle{fancy}
 \lhead{Kieran Newman, 200901399}
@@ -251,10 +253,15 @@ for $i=1,2,\ldots, N$.
 The summations in \cref{eq:vortposx,eq:vortposy} are implemented in \hyperref[vortexf]{\texttt{vortexf.m}} and \hyperref[vortexg]{\texttt{vortexg.m}} respectively.
 
 \section{Conserved Quantities}
-Returning to \crefrange{eq:vort1}{eq:vort4}, and again following \citeauthor{love94}, we can express the right hand side of each equation by the partial derivative of some function $\chi$ (related to the streamfunction $\psi$), with respect to one of the vortex coordinates $x_0,x_1,y_0$ or $y_1$.
+Returning to \crefrange{eq:vortm1}{eq:vortm4}, and again following \citeauthor{love94}, we can express the right hand side of each equation by the partial derivative of some function $\chi$ (related to the streamfunction $\psi$), with respect to one of the vortex coordinates $x_0,x_1,y_0$ or $y_1$.
 To find this function, we must integrate the right hand side as follows:
 \begin{itemize}
-\item 
+\item For \cref{eq:vortm1}, we integrate with respect to $y_0$:
+\begin{align}
+\chi &=\frac{k}{\pi}\int \frac{y_1-y_0}{(x_0-x_1)^2 + (y_0-y_1)^2} + \frac{y_0+y_1}{(x_0-x_1)^2 +(y_0+y_1)^2} + \frac{1}{2y_0}dy_0\nonumber\\
+&= \frac{k}{\pi} \left( \int  \frac{y_1-y_0}{(x_0-x_1)^2 + (y_0-y_1)^2} dy_0\right. \nonumber\\ &\left.+ \int \frac{y_0+y_1}{(x_0-x_1)^2 +(y_0+y_1)^2} dy_0 + \int \frac{1}{2y_0}dy_0\right)\\
+&= \frac{k}{\pi}\left(\inv{2} \ln y_0 -\half \ln \right)
+\end{align}
 \item 
 \item 
 
