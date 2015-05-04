@@ -156,8 +156,93 @@ This means we can further rewrite \cref{eq:veq3} to obtain
 \label{eq:veq4}
 \end{equation}
 the \emph{vorticity equation}.
+When working in two dimensions only, which will be the situation for this piece of work, this equation reduces to a scalar equation in $\omega(x,y,t)$, the scalar vorticity (noting that the velocity $\vel$ and differential operator $\del$ are now two dimensional also)
+\begin{equation}
+\partial_t \omega + \vel \cdot \del \omega = \nu \del^2 \omega
+\label{eq:2dveq}
+\end{equation}
+\citep{wayne11}.
+Such vortices are known as \emph{Line Vortices}.
+\subsection{Streamfunctions}
+When considering line vortices in two dimensional, incompressible flow, it is generally simpler to use a \emph{streamfunction} to describe the fluid motion. 
+We define a scalar function $\psi(x,y)$, known as the streamfunction, which is related to the fluid velocity via partial differentials
+\begin{align}
+\label{eq:sf1}
+u_x=\partial_y \psi,\\
+\label{eq:sf2}
+u_y=-\partial_x \psi
+\end{align}
+\citep{harlen14c1}.
+\section{Vortex Interactions}
+In \citeyear{helmholtz67}, \citeauthor{helmholtz67} found that two vortices in the same plane (as in the two-dimensional flow we consider here) would each affect the other, with the form of the effect depending on the polarity and strength of each vortex.
+\citeauthor{helmholtz67} described the interaction of two vortex ``rings'' ( toroidal vortex tubes in three dimensions \citep{saffman92}) as a ``game'', noting that, providing there was not too great a difference in the velocities of the vortices, they would travel together in the same direction with an oscillating motion.
+This interaction can be thought of as the interaction of two smoke rings.
+One ring shrinks, and passes through the other, before widening and slowing.
+The second ring then shrinks, speeds up and passes through the first, before the cycle repeats again.
+If a horizontal cross-section is taken through the toroid, and if the radius of the toroidal section (i.e. the radius of the vortex tube itself, not the ring radius) is taken infinitesimally small, the system becomes one of point vortices in a single plane. 
+A single ring of diameter $\alpha$, centred at $y=0$, would represent as two point vortices at $\pm\alpha$, with the same strength but opposite polarity.
+These two vortices would move in the $x$ direction together, as the ring would move in space, and this system can be shown by using the MATLAB code in \hyperref[sec:ap1]{Appendix 1}, with the following inputs:
+\begin{verbatim}
+EDU>> vortexleap
+number of vortices = 2
+number of time steps = 10000
+step-size = 0.01
+strength of vortex 1 = 1
+strength of vortex 2 = -1
+x-coordinate of vortex 1 = 0
+y-coordinate of vortex 1 = 0.5
+x-coordinate of vortex 2 = 0
+y-coordinate of vortex 2 = -0.5
+\end{verbatim}
+giving \cref{fig:2vort}.
+\begin{figure}[ht]
+\includegraphics[width=\textwidth]{2vort}
+\caption{Interaction of two point vortices of opposite polarity, representing a single vortex ring.}
+\label{fig:2vort}
+\end{figure}
+
+The mentions of the two-ring interaction made by \citeauthor{helmholtz67} were not a detailed description of the motion of this system, and this was the basis for a paper by \citet{love94}.
+\citeauthor{love94} modelled the system also as that of point vortices, with two pairs symmetrically arranged about the $x$ axis, with opposite polarity either side, as in \cref{fig:lovevort}.
+\begin{figure}[ht]
+\includegraphics[width=\textwidth]{lovevort}
+\caption{Point vortex pairs (A-B and C-D), from \citet[p.186]{love94}}
+\label{fig:lovevort}
+\end{figure}
+If the vortex coordinates are
+\begin{align}
+\mbox{A:}&\hspace{0.5in}(x_0,y_0)\\
+\mbox{B:}&\hspace{0.5in}(x_0,-y_0)\\
+\mbox{C:}&\hspace{0.5in}(x_1,y_1)\\
+\mbox{D:}&\hspace{0.5in}(x_1,-y_1)
+\end{align}
+and they have strengths $k$ (A and C) and $-k$ (B and D), then the motion of the fluid can be described by a streamfunction
+\begin{equation}
+\psi(x,y)=\frac{k}{2\pi}\ln\left(\frac{(x-x_0)^2 + (y+y_0)^2}{(x-x_0)^2 + (y-y_0)^2}\right) + \frac{k}{2\pi}\ln\left(\frac{(x-x_1)^2 + (y+y_1)^2}{(x-x_1)^2 + (y-y_1)^2}\right)
+\label{eq:lovesf}
+\end{equation}
+\citep{love94}.
+
+Now, with the aim of using the definitions of the streamfunction (\cref{eq:sf1,eq:sf2}), we differentiate \cref{eq:lovesf} with respect to $y$
+\begin{align}
+\partial_y \psi = \frac{k}{\pi}&\left(\frac{y+y_0}{(x-x_0)^2 + (y+y_0)^2}-\frac{y-y_0}{(x-x_0)^2 + (y-y_0)^2}\right.\nonumber\\&\left.+\frac{y+y_1}{(x-x_1)^2 + (y+y_1)^2}-\frac{y-y_1}{(x-x_1)^2 + (y-y_1)^2}\right),
+\label{eq:lovesfdy}
+\end{align}
+and with respect to $x$
+\begin{align}
+\partial_x \psi = \frac{k}{\pi}&\left(\frac{x-x_0}{(x-x_0)^2 + (y+y_0)^2}-\frac{x-x_0}{(x-x_0)^2 + (y-y_0)^2}\right.\nonumber\\&\left.+\frac{x-x_1}{(x-x_1)^2 + (y+y_1)^2}-\frac{x-x_1}{(x-x_1)^2 + (y-y_1)^2}\right).
+\label{eq:lovesfdx}
+\end{align}
+Now, we wish for the velocity of the vortices, i.e. we are looking at the above equations when $(x,y)\rightarrow(x_0,y_0)$ (or $(x_1,y_1)$).
+Again following \citeauthor{love94}, we remove the terms that become infinite in this limit, thus obtaining,
+\begin{alignat}{3}
+\frac{dx_0}{dt}&=u_x (x_0,y_0)&&= \frac{k}{\pi} \left( \frac{y_1-y_0}{(x_0-x_1)^2 + (y_0-y_1)^2} + \frac{y_0+y_1}{(x_0-x_1)^2 +(y_0+y_1)^2} + \frac{1}{2y_0}\right)\label{eq:vortm1}\\
+\frac{dy_0}{dt}&=u_y (x_0,y_0)&&= \frac{k}{\pi} \left( \frac{x_0-x_1}{(x_0-x_1)^2 + (y_0-y_1)^2} + \frac{x_1-x_0}{(x_0-x_1)^2 +(y_0+y_1)^2}\right)\label{eq:vortm2}\\
+\frac{dx_1}{dt}&=u_x (x_1,y_1)&&= \frac{k}{\pi} \left( \frac{y_0-y_1}{(x_1-x_0)^2 + (y_1-y_0)^2} + \frac{y_1+y_0}{(x_1-x_0)^2 +(y_1+y_0)^2} + \frac{1}{2y_1}\right)\label{eq:vortm3}\\
+\frac{dy_1}{dt}&=u_y (x_1,y_1)&&= \frac{k}{\pi} \left( \frac{x_1-x_0}{(x_1-x_0)^2 + (y_1-y_0)^2} + \frac{x_0-x_1}{(x_1-x_0)^2 +(y_1+y_0)^2} \right)\label{eq:vortm4}
+\end{alignat}
+\clearpage
 \section*{Appendix I: MATLAB Code}\label{sec:ap1}
-MATLAB code for the vortex leapfrogging program is given below.
+MATLAB code for the vortex leapfrogging program (\texttt{vortexleap.m}\normalfont) is given below.
 \begin{verbatim}
 clear all
 N=input('number of vortices = ');
@@ -214,11 +299,25 @@ for a=2:T
     x(a,:)=x(a-1,:)+((1/6)*(k1+2*k2+2*k3+k4));
     y(a,:)=y(a-1,:)+((1/6)*(l1+2*l2+2*l3+l4));
     percent=100*a/T;
-    display([num2str(percent),'\% done'])
+    display([num2str(percent),'% done'])
 end
 clf
-multicomet(x,y)
-title([num2str(T),' time steps, step size = ',num2str(h)])
+%for viewing evolution of tracks
+%multicomet(x,y)
+%for viewing static image of tracks
+colourmap=['b','r','g','c','m','y','k'];
+maxy=1.5*max(max(abs(y)));
+hold on
+for i=1:N
+    plot(x(:,i),y(:,i),colourmap(i))
+end
+xlabel('x');
+ylabel('y');
+title([num2str(T),' time steps, step size = ',num2str(h)]);
+axis([0 inf -maxy maxy])
+hold off
+name=input('file name? ');
+print('-dpng',[name,'.png']);
 \end{verbatim}
 The scheme used is a fourth order Runge-Kutta method with non-adaptive step size. The equations plotted are from \citet{acheson00}.
 \bibliographystyle{dcu}
