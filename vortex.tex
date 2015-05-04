@@ -9,7 +9,7 @@
 \usepackage{bm}
 \usepackage{nicefrac}
 \usepackage{hyperref}
-\usepackage{cleveref}
+\usepackage[noabbrev]{cleveref}
 % Page formatting
 \addtolength{\textwidth}{5mm}
 \addtolength{\textheight}{12mm}
@@ -162,7 +162,7 @@ When working in two dimensions only, which will be the situation for this piece 
 \label{eq:2dveq}
 \end{equation}
 \citep{wayne11}.
-Such vortices are known as \emph{Line Vortices}.
+Such vortices are known as \emph{Line Vortices}, comprising a central singularity with a circulation speed at distance $r$ of $\nicefrac{k}{r}$, for constant $k$, the vortex strength.
 \subsection{Streamfunctions}
 When considering line vortices in two dimensional, incompressible flow, it is generally simpler to use a \emph{streamfunction} to describe the fluid motion. 
 We define a scalar function $\psi(x,y)$, known as the streamfunction, which is related to the fluid velocity via partial differentials
@@ -179,8 +179,8 @@ In \citeyear{helmholtz67}, \citeauthor{helmholtz67} found that two vortices in t
 This interaction can be thought of as the interaction of two smoke rings.
 One ring shrinks, and passes through the other, before widening and slowing.
 The second ring then shrinks, speeds up and passes through the first, before the cycle repeats again.
-If a horizontal cross-section is taken through the toroid, and if the radius of the toroidal section (i.e. the radius of the vortex tube itself, not the ring radius) is taken infinitesimally small, the system becomes one of point vortices in a single plane. 
-A single ring of diameter $\alpha$, centred at $y=0$, would represent as two point vortices at $\pm\alpha$, with the same strength but opposite polarity.
+If a horizontal cross-section is taken through the toroid, and if the radius of the toroidal section (i.e. the radius of the vortex tube itself, not the ring radius) is taken infinitesimally small, the system becomes one of line vortices in a single plane. 
+A single ring of diameter $\alpha$, centred at $y=0$, would represent as two line vortices at $\pm\alpha$, with the same strength but opposite polarity.
 These two vortices would move in the $x$ direction together, as the ring would move in space, and this system can be shown by using the MATLAB code in \hyperref[sec:ap1]{Appendix 1}, with the following inputs:
 \begin{verbatim}
 EDU>> vortexleap
@@ -197,12 +197,12 @@ y-coordinate of vortex 2 = -0.5
 giving \cref{fig:2vort}.
 \begin{figure}[ht]
 \includegraphics[width=\textwidth]{2vort}
-\caption{Interaction of two point vortices of opposite polarity, representing a single vortex ring.}
+\caption{Interaction of two line vortices of opposite polarity, representing a single vortex ring.}
 \label{fig:2vort}
 \end{figure}
 
 The mentions of the two-ring interaction made by \citeauthor{helmholtz67} were not a detailed description of the motion of this system, and this was the basis for a paper by \citet{love94}.
-\citeauthor{love94} modelled the system also as that of point vortices, with two pairs symmetrically arranged about the $x$ axis, with opposite polarity either side, as in \cref{fig:lovevort}.
+\citeauthor{love94} modelled the system also as that of line vortices, with two pairs symmetrically arranged about the $x$ axis, with opposite polarity either side, as in \cref{fig:lovevort}.
 \begin{figure}[ht]
 \includegraphics[width=\textwidth]{lovevort}
 \caption{Point vortex pairs (A-B and C-D), from \citet[p.186]{love94}}
@@ -235,14 +235,50 @@ and with respect to $x$
 Now, we wish for the velocity of the vortices, i.e. we are looking at the above equations when $(x,y)\rightarrow(x_0,y_0)$ (or $(x_1,y_1)$).
 Again following \citeauthor{love94}, we remove the terms that become infinite in this limit, thus obtaining,
 \begin{alignat}{3}
-\frac{dx_0}{dt}&=u_x (x_0,y_0)&&= \frac{k}{\pi} \left( \frac{y_1-y_0}{(x_0-x_1)^2 + (y_0-y_1)^2} + \frac{y_0+y_1}{(x_0-x_1)^2 +(y_0+y_1)^2} + \frac{1}{2y_0}\right)\label{eq:vortm1}\\
-\frac{dy_0}{dt}&=u_y (x_0,y_0)&&= \frac{k}{\pi} \left( \frac{x_0-x_1}{(x_0-x_1)^2 + (y_0-y_1)^2} + \frac{x_1-x_0}{(x_0-x_1)^2 +(y_0+y_1)^2}\right)\label{eq:vortm2}\\
-\frac{dx_1}{dt}&=u_x (x_1,y_1)&&= \frac{k}{\pi} \left( \frac{y_0-y_1}{(x_1-x_0)^2 + (y_1-y_0)^2} + \frac{y_1+y_0}{(x_1-x_0)^2 +(y_1+y_0)^2} + \frac{1}{2y_1}\right)\label{eq:vortm3}\\
-\frac{dy_1}{dt}&=u_y (x_1,y_1)&&= \frac{k}{\pi} \left( \frac{x_1-x_0}{(x_1-x_0)^2 + (y_1-y_0)^2} + \frac{x_0-x_1}{(x_1-x_0)^2 +(y_1+y_0)^2} \right)\label{eq:vortm4}
+\frac{dx_0}{dt}&=u_x (x_0,y_0)&&= \frac{k}{\pi} \left( \frac{y_1-y_0}{(x_0-x_1)^2 + (y_0-y_1)^2} + \frac{y_0+y_1}{(x_0-x_1)^2 +(y_0+y_1)^2} + \frac{1}{2y_0}\right),\label{eq:vortm1}\\
+\frac{dy_0}{dt}&=u_y (x_0,y_0)&&= \frac{k}{\pi} \left( \frac{x_0-x_1}{(x_0-x_1)^2 + (y_0-y_1)^2} + \frac{x_1-x_0}{(x_0-x_1)^2 +(y_0+y_1)^2}\right),\label{eq:vortm2}\\
+\frac{dx_1}{dt}&=u_x (x_1,y_1)&&= \frac{k}{\pi} \left( \frac{y_0-y_1}{(x_1-x_0)^2 + (y_1-y_0)^2} + \frac{y_1+y_0}{(x_1-x_0)^2 +(y_1+y_0)^2} + \frac{1}{2y_1}\right),\label{eq:vortm3}\\
+\frac{dy_1}{dt}&=u_y (x_1,y_1)&&= \frac{k}{\pi} \left( \frac{x_1-x_0}{(x_1-x_0)^2 + (y_1-y_0)^2} + \frac{x_0-x_1}{(x_1-x_0)^2 +(y_1+y_0)^2} \right).\label{eq:vortm4}
 \end{alignat}
+
+\citet{acheson00} generalised these equations for a system of $N$ vortices (with strengths $k_1,k_2,\ldots ,k_N$), obtaining
+\begin{align}
+\frac{dx_i}{dt}&=\sum^N_{\substack{j=1\\j\neq i}} k_j \frac{y_j - y_i}{(x_i - x_j)^2 + (y_i - y_j)^2},\label{eq:vortposx}\\
+\frac{dy_i}{dt}&=\sum^N_{\substack{j=1\\j\neq i}} k_j \frac{x_i - x_j}{(x_i - x_j)^2 + (y_i - y_j)^2},\label{eq:vortposy}
+\end{align}
+for $i=1,2,\ldots, N$.
+The summations in \cref{eq:vortposx,eq:vortposy} are implemented in \hyperref[vortexf]{\texttt{vortexf.m}} and \hyperref[vortexg]{\texttt{vortexg.m}} respectively.
 \clearpage
 \section*{Appendix I: MATLAB Code}\label{sec:ap1}
-MATLAB code for the vortex leapfrogging program (\texttt{vortexleap.m}\normalfont) is given below.
+MATLAB code for the vortex leapfrogging program (\texttt{vortexleap.m}\normalfont) and subroutines (\texttt{vortexf.m}\normalfont,\texttt{vortexg.m}) are given below.
+\subsection*{\texttt{vortexf.m}}
+\label{vortexf}
+\begin{verbatim}
+function[fi]=vortexf(i,k,x,y,N)
+fi=0;
+jmat=[1:1:N];
+jmat(i)=[];
+for j=jmat
+    rr=((x(i)-x(j))^2)+((y(i)-y(j))^2);
+    fi=fi+(k(j)*(y(j)-y(i))/rr);
+end
+end
+\end{verbatim}
+\subsection*{\texttt{vortexg.m}}
+\label{vortexg}
+\begin{verbatim}
+function[gi]=vortexg(i,k,x,y,N)
+gi=0;
+jmat=[1:1:N];
+jmat(i)=[];
+for j=jmat
+    rr=((x(i)-x(j))^2)+((y(i)-y(j))^2);
+    gi=gi+(k(j)*(x(i)-x(j))/rr);
+end
+end
+\end{verbatim}
+\subsection*{\texttt{vortexleap.m}}
+\label{vortexleap}
 \begin{verbatim}
 clear all
 N=input('number of vortices = ');
