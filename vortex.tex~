@@ -311,7 +311,7 @@ So, we have
 \label{eq:chifinal}
 \end{equation}
 which agrees with the result in \citet{love94}.
-\subsection{Momentum}
+
 Now we have found $\chi$, we can use it (with \crefrange{eq:vortm1}{eq:vortm4}) to derive the conserved analogues of energy and momentum, as stated in \citet{love94}.
 Equating the $dy_0$ and the $dy_1$ parts of \cref{eq:lovechi}, we have
 \begin{align}
@@ -329,22 +329,8 @@ dy_0 + dy_1 &=0\\
 \Rightarrow y_0 + y_1 &= \mbox{CONSTANT},
 \end{align}
 as in the paper.
-This equation shows that the centre of the rotating system composed of the vortices A and C, or the vortices B and D (expressed by \citeauthor{love94} as the midpoint ot the line between the vortices) moves parallel to the $x$ axis at constant distance (provided the conditions set earlier by \citeauthor{helmholtz67} for the ring vortices are met).
-\subsubsection{Speed of Translation}
-This can be used to find the speed of translation of the vortex pairs (provided we have stable interactions).
-Thinking again of the midpoint $m$ of the line between the two vortices, the $x$ coordinate of $m$ is given by
-\begin{equation}
-m_x=\frac{x_0 +x_1}{2}.
-\end{equation}
-The speed (in the $x$ direction) of this midpoint is given by
-\begin{align}
-\frac{dm_x}{dt}&=\frac{d}{dt}\left(\frac{x_0 +x_1}{2}\right),\\
-&=\half \left(\frac{dx_0}{dt} + \frac{dx_1}{dt}\right),\\
-&=\frac{k}{2\pi}\left(\frac{2y_1+2y_0}{(x_0-x_1)^2 + (y_0+y_1)^2} + \inv{2y_0} + \inv{2y_1}\right)
-\end{align}
-i.e. the average velocity of the two vortices.
-\subsection{Energy}
-Now equating the $y_0$ and the $x_0$ terms, we have 
+
+Now equating the $y_0$ and the $x_0$ terms, we have
 \begin{align}
 \frac{dy_0}{-\dxa \chi} &= \frac{dx_0}{\dya \chi},\\
 \Rightarrow \dya \chi dy_0 &= - \dxa \chi dx_0,\\
@@ -352,7 +338,6 @@ Now equating the $y_0$ and the $x_0$ terms, we have
 \Rightarrow \chi +c_1 &= -\chi + c_2,\\
 \Rightarrow \chi &= \mbox{CONSTANT}.
 \end{align}
-
 
 \clearpage
 \section*{Appendix I: MATLAB Code}\label{sec:ap1}
