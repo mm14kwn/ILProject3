@@ -48,6 +48,10 @@
 \newcommand{\bc}{\bm{C}}
 \newcommand{\half}{\frac{1}{2}}
 \newcommand{\nicehalf}{\nicefrac{1}{2}}
+\newcommand{\dxa}{\partial_{x_0}}
+\newcommand{\dxb}{\partial_{x_1}}
+\newcommand{\dya}{\partial_{y_0}}
+\newcommand{\dyb}{\partial_{y_1}}
 % Header / footer
 \pagestyle{fancy}
 \lhead{Kieran Newman, 200901399}
@@ -303,7 +307,23 @@ So, we have
 \end{equation}
 which agrees with the result in \citet{love94}.
 
-Now we have found $\chi$, we can use it (with \crefrange{eq:vortm1}{eq:vortm2}) to 
+Now we have found $\chi$, we can use it (with \crefrange{eq:vortm1}{eq:vortm4}) to derive the conserved analogues of energy and momentum, as stated in \citet{love94}.
+Equating the $dy_0$ and the $dy_1$ parts of \cref{eq:lovechi}, we have
+\begin{align}
+\frac{dy_0}{-\partial_{x_0}\chi} &= \frac{-dy_1}{\partial_{x_1} \chi},\\
+\Rightarrow \frac{\dxb \chi\cdot dy_0 + \dxa \chi \cdot dy_1}{-\partial_{x_0 x_1} \chi}&=0,\\
+\Rightarrow \dxb \chi\cdot dy_0 + \dxa \chi \cdot dy_1 &=0,
+\end{align}
+and, as
+\begin{equation}
+\dxb \chi = \dxa \chi,
+\end{equation}
+we have
+\begin{align}
+dy_0 + dy_1 &=0\\
+\Rightarrow y_0 + y_1 &= \mbox{CONSTANT},
+\end{align}
+as in the paper.
 \begin{figure}
 	\centering
 	\newlength\figureheight 
