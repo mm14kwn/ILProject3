@@ -254,18 +254,56 @@ The summations in \cref{eq:vortposx,eq:vortposy} are implemented in \hyperref[vo
 
 \section{Conserved Quantities}
 Returning to \crefrange{eq:vortm1}{eq:vortm4}, and again following \citeauthor{love94}, we can express the right hand side of each equation by the partial derivative of some function $\chi$ (related to the streamfunction $\psi$), with respect to one of the vortex coordinates $x_0,x_1,y_0$ or $y_1$.
+\citeauthor{love94} says the differential equations can ``clearly'' be put in the form
+\begin{equation}
+\frac{dx_0}{\partial_{y_0}\chi}=\frac{dy_0}{-\partial_{x_0}\chi}=\frac{dx_1}{\partial_{y_1}\chi}=\frac{dy_1}{-\partial_{x_1}\chi}=dt.
+\label{eq:lovechi}
+\end{equation}
 To find this function, we must integrate the right hand side as follows:
 \begin{itemize}
 \item For \cref{eq:vortm1}, we integrate with respect to $y_0$:
 \begin{align}
 \chi &=\frac{k}{\pi}\int \frac{y_1-y_0}{(x_0-x_1)^2 + (y_0-y_1)^2} + \frac{y_0+y_1}{(x_0-x_1)^2 +(y_0+y_1)^2} + \frac{1}{2y_0}dy_0\nonumber\\
-&= \frac{k}{\pi} \left( \int  \frac{y_1-y_0}{(x_0-x_1)^2 + (y_0-y_1)^2} dy_0\right. \nonumber\\ &\left.+ \int \frac{y_0+y_1}{(x_0-x_1)^2 +(y_0+y_1)^2} dy_0 + \int \frac{1}{2y_0}dy_0\right)\\
-&= \frac{k}{\pi}\left(\inv{2} \ln y_0 -\half \ln \right)
+&= \frac{k}{\pi} \left( \int  \frac{y_1-y_0}{(x_0-x_1)^2 + (y_0-y_1)^2} dy_0\right. \nonumber\\ &\left.+ \int \frac{y_0+y_1}{(x_0-x_1)^2 +(y_0+y_1)^2} dy_0 + \int \frac{1}{2y_0}dy_0\right)\nonumber\\
+&= \frac{k}{\pi}\left(\inv{2} \ln y_0 -\half \ln((y_0-y_1)^2 +(x_0-x_1)^2)\right. \nonumber\\ &\left. + \half \ln((y_0+y_1)^2 +(x_0-x_1)^2) +C_1 (x_0,x_1,y_1)\right)\nonumber\\
+&=\frac{k}{2\pi}\ln y_0 \frac{(y_0+y_1)^2 +(x_0-x_1)^2}{(y_0-y_1)^2 +(x_0-x_1)^2}\cdot C_1 \label{eq:chi1}
 \end{align}
-\item 
-\item 
-
+\item For \cref{eq:vortm2}, we integrate the negative with respect to $x_0$:
+\begin{align}
+\chi &=-\frac{k}{\pi}\int \frac{x_0-x_1}{(x_0-x_1)^2 + (y_0-y_1)^2} - \frac{x_0-x_1}{(x_0-x_1)^2 +(y_0+y_1)^2} dx_0\nonumber\\
+&= -\frac{k}{\pi} \left( \int  \frac{x_0-x_1}{(x_0-x_1)^2 + (y_0-y_1)^2} dx_0\right. \nonumber\\ &\left.- \int \frac{x_0-x_1}{(x_0-x_1)^2 +(y_0+y_1)^2} dx_0 \right)\nonumber\\
+&= \frac{k}{\pi}\left(-\half \ln((y_0-y_1)^2 +(x_0-x_1)^2)\right. \nonumber\\ &\left. + \half \ln((y_0+y_1)^2 +(x_0-x_1)^2) +C_2 (x_1,y_0,y_1)\right)\nonumber\\
+&=\frac{k}{2\pi}\ln \frac{(y_0+y_1)^2 +(x_0-x_1)^2}{(y_0-y_1)^2 +(x_0-x_1)^2}\cdot C_2 \label{eq:chi2}
+\end{align}
+\item For \cref{eq:vortm3}, we integrate with respect to $y_1$:
+\begin{align}
+\chi &=\frac{k}{\pi}\int \frac{y_0-y_1}{(x_1-x_0)^2 + (y_1-y_0)^2} + \frac{y_0+y_1}{(x_1-x_0)^2 +(y_0+y_1)^2} + \frac{1}{2y_1}dy_1\nonumber\\
+&= \frac{k}{\pi} \left( \int  \frac{y_0-y_1}{(x_1-x_0)^2 + (y_1-y_0)^2} dy_1\right. \nonumber\\ &\left.+ \int \frac{y_0+y_1}{(x_1-x_0)^2 +(y_0+y_1)^2} dy_1 + \int \frac{1}{2y_1}dy_0\right)\nonumber\\
+&= \frac{k}{\pi}\left(\inv{2} \ln y_1 -\half \ln((y_1-y_0)^2 +(x_1-x_0)^2)\right. \nonumber\\ &\left. + \half \ln((y_0+y_1)^2 +(x_1-x_0)^2) +C_3 (x_0,x_1,y_0)\right)\nonumber\\
+&=\frac{k}{2\pi}\ln y_1 \frac{(y_0+y_1)^2 +(x_1-x_0)^2}{(y_1-y_0)^2 +(x_1-x_0)^2} \cdot C_3\label{eq:chi3}
+\end{align} 
+\item For \cref{eq:vortm4}, we integrate the negative with respect to $x_1$:
+\begin{align}
+\chi &=-\frac{k}{\pi}\int \frac{x_1-x_0}{(x_1-x_0)^2 + (y_1-y_0)^2} - \frac{x_1-x_0}{(x_1-x_0)^2 +(y_0+y_1)^2} dx_1\nonumber\\
+&= -\frac{k}{\pi} \left( \int  \frac{x_1-x_0}{(x_1-x_0)^2 + (y_1-y_0)^2} dx_1\right. \nonumber\\ &\left.- \int \frac{x_1-x_0}{(x_1-x_0)^2 +(y_0+y_1)^2} dx_1 \right)\nonumber\\
+&= \frac{k}{\pi}\left(-\half \ln((y_1-y_0)^2 +(x_1-x_0)^2)\right. \nonumber\\ &\left. + \half \ln((y_0+y_1)^2 +(x_1-x_0)^2) +C_4 (x_0,y_0,y_1)\right)\nonumber\\
+&=\frac{k}{2\pi}\ln \frac{(y_0+y_1)^2 +(x_1-x_0)^2}{(y_1-y_0)^2 +(x_1-x_0)^2} \cdot C_4\label{eq:chi4}
+\end{align}
 \end{itemize}
+Combining \crefrange{eq:chi1}{eq:chi4}, we can see that, noting that $(a-b)^2 = (b-a)^2$, we must have, for all equations to be equal
+\begin{align}
+C_1&=y_1,\\
+C_3&=y_0,\\
+C_2&=C_4=y_1 y_2.
+\end{align}
+So, we have
+\begin{equation}
+\chi=\frac{k}{2\pi}\ln y_0 y_1 \frac{(y_0+y_1)^2 +(x_1-x_0)^2}{(y_1-y_0)^2 +(x_1-x_0)^2},
+\label{eq:chifinal}
+\end{equation}
+which agrees with the result in \citet{love94}.
+
+Now we have found $\chi$, we can use it (with \crefrange{eq:vortm1}{eq:vortm2}) to 
 \begin{figure}
 	\centering
 	\newlength\figureheight 
