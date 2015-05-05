@@ -55,7 +55,7 @@
 % Header / footer
 \pagestyle{fancy}
 \lhead{Kieran Newman, 200901399}
-\chead{\today\\ \currenttime}
+\chead{\today}
 \rhead{\em MATH 5825M, assignment 3}
 \lfoot{}
 \cfoot{\thepage}
@@ -118,6 +118,7 @@ The triple outer product of $\vel$ and $\del$ can be written using the following
 \label{eq:vecid1}
 \vel\times (\delcross \vel)=\inv{2}\del(\vel^2) -\vel\cdot\del\vel.
 \end{equation}
+\clearpage
 \section{Dynamics of Vortices}
 The general motion of a fluid is given by the Navier-Stokes equations, which are usually written in vector form:
 \begin{equation}
@@ -180,7 +181,8 @@ u_x=\partial_y \psi,\\
 u_y=-\partial_x \psi
 \end{align}
 \citep{harlen14c1}.
-\section{Vortex Interactions}
+\clearpage
+\section{Vortex Interactions}\label{sec:vortint}
 In \citeyear{helmholtz67}, \citeauthor{helmholtz67} found that two vortices in the same plane (as in the two-dimensional flow we consider here) would each affect the other, with the form of the effect depending on the polarity and strength of each vortex.
 \citeauthor{helmholtz67} described the interaction of two vortex ``rings'' ( toroidal vortex tubes in three dimensions \citep{saffman92}) as a ``game'', noting that, providing there was not too great a difference in the velocities of the vortices, they would travel together in the same direction with an oscillating motion.
 This interaction can be thought of as the interaction of two smoke rings.
@@ -260,7 +262,7 @@ Again following \citeauthor{love94}, we remove the terms that become infinite in
 \end{align}
 for $i=1,2,\ldots, N$.
 The summations in \cref{eq:vortposx,eq:vortposy} are implemented in \hyperref[vortexf]{\texttt{vortexf.m}} and \hyperref[vortexg]{\texttt{vortexg.m}} respectively.
-
+\clearpage
 \section{Conserved Quantities}
 Returning to \crefrange{eq:vortm1}{eq:vortm4}, and again following \citeauthor{love94}, we can express the right hand side of each equation by the partial derivative of some function $\chi$ (related to the streamfunction $\psi$), with respect to one of the vortex coordinates $x_0,x_1,y_0$ or $y_1$.
 \citeauthor{love94} says the differential equations can ``clearly'' be put in the form
@@ -326,12 +328,24 @@ and, as
 we have
 \begin{align}
 dy_0 + dy_1 &=0\\
-\Rightarrow y_0 + y_1 &= \mbox{CONSTANT},
+\Rightarrow y_0 + y_1 &= \mbox{CONSTANT}\label{eq:consty},
 \end{align}
 as in the paper.
 This equation shows that the centre of the rotating system composed of the vortices A and C, or the vortices B and D (expressed by \citeauthor{love94} as the midpoint ot the line between the vortices) moves parallel to the $x$ axis at constant distance (provided the conditions set earlier by \citeauthor{helmholtz67} for the ring vortices are met).
-\subsubsection{Speed of Translation}
-This can be used to find the speed of translation of the vortex pairs (provided we have stable interactions).
+
+\citet{musgrave09} give an analogue to momentum for systems of N point vortices as
+\begin{equation}
+\bm{p}=\half \rho \left(\begin{array}{c} \sum_i^N k_i y_i\\-\sum_{i}^N k_i x_i\\0\end{array}\right).
+\end{equation}
+We are interested in momentum in the $x$ direction, so we use, for each vortex pair
+\begin{align}
+p_x&=\half \rho \sum_{i=0}^1 k_i y_i,\\
+&= \half \rho (k_0 y_0 + k_1 y_1).
+\end{align}
+From the definition of our system, we have $k_0=k_1=\mbox{constant}$ and $\rho=\mbox{constant}$, and from \cref{eq:consty} we have that $y_0 + y_1 = \mbox{constant}$, therefore we have $p_x=\mbox{constant}$.
+This means momentum is conserved.
+\subsection{Speed of Translation}
+The centrepoint can be used to find the speed of translation of the vortex pairs (provided we have stable interactions).
 Thinking again of the midpoint $m$ of the line between the two vortices, the $x$ coordinate of $m$ is given by
 \begin{equation}
 m_x=\frac{x_0 +x_1}{2}.
@@ -352,11 +366,122 @@ Now equating the $y_0$ and the $x_0$ terms, we have
 \Rightarrow \chi +c_1 &= -\chi + c_2,\\
 \Rightarrow \chi &= \mbox{CONSTANT}.
 \end{align}
+$\chi$ represents the energy of the fluid \citep{love94}, so we have conservation of energy in the system, provided we ignore viscous effects.
+\clearpage
+\section{Conditions for Leapfrogging}
+\citet{love94} quantified the conditions necessary for the ``leapfrogging'' described in \cref{sec:vortint} to take place.
+At the point when all four vortices are aligned vertically, we define $y_{0,a}$ and $y_{1,a}$ to be the $y$ coordinates of vortices A and C respectively.
+From \cref{eq:consty} we have that
+\begin{equation}
+y_{0,a} + y_{0,b} = const = 2c,\label{eq:lc1}
+\end{equation}
+where the factor of two in the second equality is to simplify later expressions.
+As we found $\chi$ constant, we also have (as $x_0=x_1$) 
+\begin{equation}
+y_{0,a}y_{0,b}\left(\frac{y_{0,a} + y_{0,b}}{y_{0,a}-y_{0,b}}\right)^2 = const = a^2,\label{eq:lc2}
+\end{equation}
+where again the second equality is to simplify later expressions.
 
+For periodicity of the motion we must have $a^2 > c^2$ \citep{love94}.
+Feeding \cref{eq:lc1,eq:lc2} into this condition, we obtain a condition in terms of our $y$ coordinates:
+\begin{equation}
+6y_{0,a}y_{1,a}-y_{0,a}^2 -y_{1,a} >0 \label{eq:lc3}.
+\end{equation}
+We are looking for a ratio of $y_{1,a}/y_{0,a}$, so we set $y_{1,a}=1$
+in \cref{eq:lc3} and solve for $y_{0,a}$, obtaining
+$y_{1,a}/y_{0,a}<3+2\sqrt{2}$.  This is the condition for periodic
+leapfrogging.  In the following section, and the MATLAB code, we use
+notation closer to \citeauthor{acheson00}, and thus, keeping the $y$ coordinates of one pair as $1,-1$, we define
+$\alpha=y_{0,a}/y_{1,a}> 3-2\sqrt{2}$, the reciprocal of the previous ratio.
+\clearpage
+\section{Stability of the 4-Vortex System}
+Taking a system of four point vortices, as in \citet{acheson00}, a program (\hyperref[sec:ap1]{Appendix I}) was written in MATLAB to numerically integrate the vortex velocity equations (\cref{eq:vortposx,eq:vortposy}).
+The scheme used is a fourth order Runge-Kutta method with static step size.
+The question to be answered is, what values of $\alpha$ permit stable, periodic leapfrogging when the initial position of one vortex is slightly perturbed.
+\citeauthor{acheson00} presents four regions of (in)stability, and the below list contains figures from his \citeyear{acheson00} paper, as well as those generated in the MATLAB program.
+There appears to be numerical instabilities generated in the numerical integration used, which contribute most of the variation from the figures by \citeauthor{acheson00}.
+\begin{description}
+\item[No leapfrogging ($\alpha<3-2\sqrt{2}\approx
+0.172$)]
+In this region, as per the condition in \cref{eq:lc3}, there is no leapfrogging and the vortices merely translate, as can be seen in \cref{fig:noleap}.
+\begin{figure}[ht]
+\centering
+\setlength\figureheight{7.5cm} 
+\setlength\figurewidth{\textwidth}
+\input{4vortnoleap.tikz}
+\caption{Interaction of four line vortices with $\alpha=0.1$, showing no leapfrogging.}
+\label{fig:noleap}
+\end{figure}
+\item[Instability to small asymmetric disturbances ($0.172<\alpha<0.29$)] 
+In this region, leapfrogging occurs, but small asymmetric disturbances in the starting position will cause the system to collapse into instability after a small number of ``leapfroggings''.
+The plot from \citet{acheson00} (\cref{fig:achinst}) shows this instability after three ``leapfroggings'', for $\alpha=0.220$ and a pertubation of \num{1E-6} to the first vortex.
+The same conditions are used for the MATLAB plot in \cref{fig:instab}.
+\begin{figure}[ht]
+\centering
+\includegraphics[width=\textwidth]{achinst.png}
+\caption{Interaction of four line vortices with $\alpha=0.220$, and a pertubation of \num{1E-6}, showing instability. From \citet[p.~271]{acheson00}}
+\label{fig:achinst}
+\end{figure}
+\begin{figure}[ht]
+\centering
+\setlength\figureheight{7.5cm} 
+\setlength\figurewidth{\textwidth}
+\input{4vortexinstab2.tikz}
+\caption{Interaction of four line vortices with $\alpha=0.220$, and a pertubation of \num{1E-6},  showing instability. This plot from MATLAB is broadly in agreement with the above plot from \citet{acheson00}}
+\label{fig:instab}
+\end{figure}
+\item[Instability with three-vortex motion ($0.29<\alpha<0.382$)]
+Within this region, the instability often forms a system of three vortices, as two vortices with the same polarity pass close enough to trigger orbital motion, capturing one of the other vortices as they go.
+The plot from \citet{acheson00} (\cref{fig:ach3inst}) shows the system for $\alpha=0.310$ and a pertubation of \num{7E-3} to the first vortex.
+The same conditions are used for the MATLAB plot in \cref{fig:3instab}.
+\begin{figure}[ht]
+\centering
+\includegraphics[width=\textwidth]{ach3inst.png}
+\caption{Interaction of four line vortices with $\alpha=0.310$, and a pertubation of \num{7E-3}, showing the three vortex interaction. From \citet[p.~272]{acheson00}}
+\label{fig:ach3inst}
+\end{figure}
+\begin{figure}[ht]
+\centering
+\setlength\figureheight{7.5cm} 
+\setlength\figurewidth{\textwidth}
+\input{4vortex3instab.tikz}
+\caption{Interaction of four line vortices with $\alpha=0.310$, and a pertubation of \num{7E-3},  showing the three vortex interaction. This plot from MATLAB is broadly in agreement with the above plot from \citet{acheson00}}
+\label{fig:3instab}
+\end{figure}
+\item[Stability ($\alpha>0.382$)] 
+For higher values of $\alpha$, the system seems stable to small pertubations, at least in similar domains to the other plots.
+A plot is shown below (\cref{fig:stable}) for $\alpha=0.5$ and a pertubation of \num{5E-3}.
+There does, however appear to be some numerical errors, as the vortex pairs appear to widen.
+\begin{figure}[ht]
+\centering
+\setlength\figureheight{7.5cm} 
+\setlength\figurewidth{\textwidth}
+\input{stable4vortex.tikz}
+\caption{Interaction of four line vortices with $\alpha=0.5$, and a pertubation of \num{5E-3},  showing stability, but possibly some numerical errors.}
+\label{fig:stable}
+\end{figure}
+\end{description}
+\clearpage
+\section{Errors}
+Analysing \cref{fig:stable}, it can be seen that the vortices seems to widen throughout the model run.
+This would suggest energy is not staying constant.
+To analyse this, the model was run with the same settings, and $\chi$ (\cref{eq:lovechi}) was plotted (\hyperref[chicalc]{\texttt{chicalc.m}}).
+This is shown in \cref{fig:chicalc}.
+\begin{figure}[ht]
+\centering
+\setlength\figureheight{7.5cm} 
+\setlength\figurewidth{\textwidth}
+\input{chicalc.tikz}
+\caption{Plot of $\chi$ (\cref{eq:lovechi}) with time, showing loss of energy in the system. The blue plot shows the vortex pair above the $x$ axis, the red the pair below and the green their sum.}
+\label{fig:chicalc}
+\end{figure}
+
+It can be seen from \cref{fig:chicalc} that there is energy lost from the system as time increases.
+The gradual decline, and the effect it has on the paths of the vortices (widening) suggests possibly numerical diffusion, which is a known problem in many computational fluid problems.
 
 \clearpage
 \section*{Appendix I: MATLAB Code}\label{sec:ap1}
-MATLAB code for the vortex leapfrogging program (\texttt{vortexleap.m}\normalfont) and subroutines (\texttt{vortexf.m}\normalfont,\texttt{vortexg.m}) are given below.
+MATLAB code for the vortex leapfrogging program (\texttt{vortexleap.m}\normalfont) and subroutines (\texttt{vortexf.m}\normalfont,\texttt{vortexg.m}), as well as the analytic program \texttt{chicalc.m} are given below.
 \subsection*{\texttt{vortexf.m}}
 \label{vortexf}
 \begin{verbatim}
@@ -462,6 +587,20 @@ name=input('file name? ');
 print('-dpng',[name,'.png']);
 \end{verbatim}
 The scheme used is a fourth order Runge-Kutta method with non-adaptive step size. The equations plotted are from \citet{acheson00}.
+\subsection*{\texttt{chicalc.m}}
+\label{chicalc}
+\begin{verbatim}
+clear chi
+for i=1:T
+    chi(i)=(k(1)/(2*pi))*log(y(i,1)*y(i,3)*(((x(i,3)-x(i,1))^2 + (y(i,1)+y(i,3))^2)/((x(i,3)-x(i,1))^2 + (y(i,3)-y(i,1))^2)));
+end
+plot(chi)
+hold on
+title('plot of \chi for stable vortex interaction simulation')
+xlabel('time')
+ylabel('\chi')
+hold off
+\end{verbatim}
 \bibliographystyle{dcu}
 \bibliography{kwnrefs}
 \end{document}

@@ -311,7 +311,7 @@ So, we have
 \label{eq:chifinal}
 \end{equation}
 which agrees with the result in \citet{love94}.
-
+\subsection{Momentum}
 Now we have found $\chi$, we can use it (with \crefrange{eq:vortm1}{eq:vortm4}) to derive the conserved analogues of energy and momentum, as stated in \citet{love94}.
 Equating the $dy_0$ and the $dy_1$ parts of \cref{eq:lovechi}, we have
 \begin{align}
@@ -326,11 +326,36 @@ and, as
 we have
 \begin{align}
 dy_0 + dy_1 &=0\\
-\Rightarrow y_0 + y_1 &= \mbox{CONSTANT},
+\Rightarrow y_0 + y_1 &= \mbox{CONSTANT}\label{eq:consty},
 \end{align}
 as in the paper.
+This equation shows that the centre of the rotating system composed of the vortices A and C, or the vortices B and D (expressed by \citeauthor{love94} as the midpoint ot the line between the vortices) moves parallel to the $x$ axis at constant distance (provided the conditions set earlier by \citeauthor{helmholtz67} for the ring vortices are met).
 
-Now equating the $y_0$ and the $x_0$ terms, we have
+\citet{musgrave09} give an analogue to momentum for systems of N point vortices as
+\begin{equation}
+\bm{p}=\half \rho \left(\begin{array}{c} \sum_i^N k_i y_i\\-\sum_{i}^N k_i x_i\\0\end{array}\right).
+\end{equation}
+We are interested in momentum in the $x$ direction, so we use, for each vortex pair
+\begin{align}
+p_x&=\half \rho \sum_{i=0}^1 k_i y_i,\\
+&= \half \rho (k_0 y_0 + k_1 y_1).
+\end{align}
+From the definition of our system, we have $k_0=k_1=\mbox{constant}$ and $\rho=\mbox{constant}$, and from \cref{eq:consty} we have that $y_0 + y_1 = \mbox{constant}$, therefore we have $p_x=\mbox{constant}$.
+\subsubsection{Speed of Translation}
+The centrepoint can be used to find the speed of translation of the vortex pairs (provided we have stable interactions).
+Thinking again of the midpoint $m$ of the line between the two vortices, the $x$ coordinate of $m$ is given by
+\begin{equation}
+m_x=\frac{x_0 +x_1}{2}.
+\end{equation}
+The speed (in the $x$ direction) of this midpoint is given by
+\begin{align}
+\frac{dm_x}{dt}&=\frac{d}{dt}\left(\frac{x_0 +x_1}{2}\right),\\
+&=\half \left(\frac{dx_0}{dt} + \frac{dx_1}{dt}\right),\\
+&=\frac{k}{2\pi}\left(\frac{2y_1+2y_0}{(x_0-x_1)^2 + (y_0+y_1)^2} + \inv{2y_0} + \inv{2y_1}\right)
+\end{align}
+i.e. the average velocity of the two vortices.
+\subsection{Energy}
+Now equating the $y_0$ and the $x_0$ terms, we have 
 \begin{align}
 \frac{dy_0}{-\dxa \chi} &= \frac{dx_0}{\dya \chi},\\
 \Rightarrow \dya \chi dy_0 &= - \dxa \chi dx_0,\\
@@ -338,6 +363,7 @@ Now equating the $y_0$ and the $x_0$ terms, we have
 \Rightarrow \chi +c_1 &= -\chi + c_2,\\
 \Rightarrow \chi &= \mbox{CONSTANT}.
 \end{align}
+
 
 \clearpage
 \section*{Appendix I: MATLAB Code}\label{sec:ap1}
