@@ -203,7 +203,12 @@ y-coordinate of vortex 2 = -0.5
 \end{verbatim}
 giving \cref{fig:2vort}.
 \begin{figure}[ht]
-\includegraphics[width=\textwidth]{2vort}
+\centering
+\newlength\figureheight 
+\newlength\figurewidth 
+\setlength\figureheight{10cm} 
+\setlength\figurewidth{\textwidth}
+\input{2vortex.tikz}
 \caption{Interaction of two line vortices of opposite polarity, representing a single vortex ring.}
 \label{fig:2vort}
 \end{figure}
@@ -333,16 +338,7 @@ Now equating the $y_0$ and the $x_0$ terms, we have
 \Rightarrow \chi +c_1 &= -\chi + c_2,\\
 \Rightarrow \chi &= \mbox{CONSTANT}.
 \end{align}
-\begin{figure}
-	\centering
-	\newlength\figureheight 
-	\newlength\figurewidth 
-	\setlength\figureheight{10cm} 
-	\setlength\figurewidth{\textwidth}
-	\input{vortex.tikz}
-	\caption{A plot of a vortex}
-	\label{fig:vortest}
-\end{figure}
+
 \clearpage
 \section*{Appendix I: MATLAB Code}\label{sec:ap1}
 MATLAB code for the vortex leapfrogging program (\texttt{vortexleap.m}\normalfont) and subroutines (\texttt{vortexf.m}\normalfont,\texttt{vortexg.m}) are given below.
